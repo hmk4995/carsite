@@ -1,11 +1,11 @@
 from django.db import models
-
+from django.core.validators import validate_comma_separated_integer_list
 
 class Cardb(models.Model):
 	car_id = models.AutoField(primary_key=True)
 	brand_name = models.CharField(max_length=200, default="", editable=True)
 	model_name = models.CharField(max_length=200, default="", editable=True)
-	variants = models.CommaSeparatedIntegerField(max_length=500, editable=True)
+	variants = models.CharField(max_length=500,validators=[validate_comma_separated_integer_list], editable=True)
 	min_price = models.FloatField(default=0)
 	max_price = models.FloatField(default=0)
 	min_mileage = models.FloatField(default=0)
@@ -14,7 +14,7 @@ class Cardb(models.Model):
 	power = models.FloatField(default=0)
 	torque = models.FloatField(default=0)
 	cylinder_capacity = models.IntegerField(default=0)
-	fuel_types = models.CommaSeparatedIntegerField(max_length=100, editable=True)
+	fuel_types = models.CharField(max_length=500,validators=[validate_comma_separated_integer_list], editable=True)
 	geartype_manual = models.BooleanField(default=True)
 	geartype_auto = models.BooleanField(default=False)
 	no_of_gears = models.IntegerField(default=0)
@@ -29,7 +29,7 @@ class Cardb(models.Model):
         ('Hybrid', 'Hybrid'),
     )
 	vehicle_class = models.CharField(max_length=10,choices=VEHICLE_CLASS_CHOICES)
-	dimensions = models.CommaSeparatedIntegerField(max_length=400, editable=True)
+	dimensions = models.CharField(max_length=500,validators=[validate_comma_separated_integer_list], editable=True)
 	tank_capacity = models.IntegerField(default=0)
 	trunk_capacity = models.IntegerField(default=0)
 	ac = models.BooleanField(default=True)
